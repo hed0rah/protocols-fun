@@ -5,8 +5,7 @@ stack - modern (TCP, UDP, ICMP, ARP, DHCP, BGP, SNMP) and eventually
 obscure/legacy (IPX, POCSAG, SITOR, ARPANET IMP-IMP, and whatever else
 turns out to be worth breaking down byte by byte).
 
-Hosted version: https://hed0rah.github.io/protocols-fun/ (mirrored - see
-below)
+Hosted at https://protocols.databurn.org/ (GitHub Pages, from this repo).
 
 Sibling repos: [ipv6-fun](https://github.com/hed0rah/ipv6-fun) covers
 IPv6/ICMPv6/NDP in depth with its own interactive pages - this repo
@@ -34,14 +33,14 @@ more as they come up), that revision gets its own tab rather than a
 footnote - the goal is to show what changed and when, not just the
 current state.
 
-## Mirroring to hed0rah.github.io
+## Where the pages are edited
 
-This repo is the source of truth (real git history, issues, etc). Pages
-are periodically mirrored into
-[hed0rah.github.io](https://github.com/hed0rah/hed0rah.github.io)'s own
-`protocols-fun/` directory so they're reachable from the main site
-alongside the `acidcat` anatomy pages and the `esp32`/`canbus`/`lora`
-deep-dives - same pattern already used for those.
+The pages are written in
+[hed0rah.github.io](https://github.com/hed0rah/hed0rah.github.io)'s
+`protocols-fun/` directory and mirrored here, and this repo is what GitHub
+Pages serves at protocols.databurn.org. hed0rah.github.io/protocols-fun/
+redirects to it. The mirror keeps this repo's own `README.md`, `CNAME`
+and `.gitignore`.
 
 ## Requirements
 

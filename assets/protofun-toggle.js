@@ -1,4 +1,6 @@
 // protofun-toggle -- RJ, the protocols-fun / ipv6-fun mascot + 6-theme cycle.
+// Pages boot to the house pair (house-light / house-dark) chosen by the OS
+// setting; the other four are reachable by cycling. A stored choice wins.
 // Click cycles: light -> dark -> amber-CRT -> vaporwave -> house-light -> house-dark.
 // The two "secret" modes (amber/vapor) light RJ up -- happy eyes + pins racing.
 // The two "house" modes are the site-wide Deep Dive skins: RJ goes calm/buttoned-up
@@ -40,6 +42,10 @@
     button{-webkit-appearance:none;appearance:none;background:none;border:0;padding:3px;margin:0;cursor:pointer;color:inherit;border-radius:6px;line-height:0;display:inline-flex}
     button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
     .box{width:var(--protofun-w,30px);height:var(--protofun-h,45px)}
+    /* passive has no button wrapper, and an inline span ignores width and
+       height, so the svg would fall back to its own viewBox scale */
+    :host([passive]) .box{display:block}
+    :host([passive]){display:inline-block;line-height:0}
     .eyes-happy,.eyes-scowl,.mouth-frown,.mouth-neutral{display:none}
     /* the secret modes (dark/amber/vapor) => happy ^^ eyes */
     :host([data-state="dark"]) .eyes,:host([data-state="amber"]) .eyes,:host([data-state="vapor"]) .eyes{display:none}
@@ -74,9 +80,19 @@
   class ProtofunToggle extends HTMLElement {
     connectedCallback() {
       var root = this.attachShadow({ mode: 'open' });
-      root.innerHTML = '<style>' + css + '</style><button type="button" aria-label="Cycle theme: light, dark, amber CRT, vaporwave, house light, house dark" title="Theme (click to cycle)"><span class="box">' + svg + '</span></button>';
-      this._btn = root.querySelector('button');
-      this._btn.addEventListener('click', () => this.cycle());
+      // passive: RJ as a character rather than a control. Same drawing, same
+      // per-theme faces and moods, but no button and no click handling, so a
+      // large decorative RJ cannot become a second theme switch. The small one
+      // in the masthead stays the control, where readers have learned it is.
+      this._passive = this.hasAttribute('passive');
+      if (this._passive) {
+        root.innerHTML = '<style>' + css + '</style><span class="box" aria-hidden="true">' + svg + '</span>';
+        this._btn = null;
+      } else {
+        root.innerHTML = '<style>' + css + '</style><button type="button" aria-label="Cycle theme: light, dark, amber CRT, vaporwave, house light, house dark" title="Theme (click to cycle)"><span class="box">' + svg + '</span></button>';
+        this._btn = root.querySelector('button');
+        this._btn.addEventListener('click', () => this.cycle());
+      }
       this._sync = (e) => { if (e.target !== this && e.detail && e.detail.theme) this.apply(e.detail.theme, false); };
       document.addEventListener('protofun-theme', this._sync);
       this._netOff = () => this.setAttribute('data-mood', 'nolink');
@@ -87,7 +103,7 @@
       var saved = null;
       try { saved = localStorage.getItem('protofun-theme'); } catch (e) {}
       var initial = STATES.indexOf(saved) >= 0 ? saved
-        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'house-dark' : 'house-light');
       this.apply(initial, false);
     }
     disconnectedCallback() {
@@ -101,10 +117,41 @@
       if (STATES.indexOf(state) < 0) state = 'light';
       this.setAttribute('data-state', state);
       document.documentElement.setAttribute('data-theme', state);
-      this._btn.setAttribute('aria-pressed', String(state !== 'light'));
+      if (this._btn) this._btn.setAttribute('aria-pressed', String(state !== 'light'));
       if (persist) { try { localStorage.setItem('protofun-theme', state); } catch (e) {} }
       this.dispatchEvent(new CustomEvent('protofun-theme', { bubbles: true, composed: true, detail: { theme: state } }));
     }
   }
   customElements.define('protofun-toggle', ProtofunToggle);
+})();
+
+// protofun-mode -- the plain light/dark switch that sits beside RJ. RJ cycles all
+// six themes; this flips within the pair the reader is in (house-light and
+// house-dark, light and dark). It drives RJ's own apply(), so every toggle on
+// the page stays in sync and the choice is stored the same way.
+(function () {
+  if (customElements.get('protofun-mode')) return;
+  var PAIR = { 'light': 'dark', 'dark': 'light', 'house-light': 'house-dark', 'house-dark': 'house-light',
+               'amber': 'light', 'vapor': 'dark' };
+  var css = ':host{display:inline-block;line-height:0}' +
+    'button{-webkit-appearance:none;appearance:none;background:none;border:0;padding:2px;margin:0;cursor:pointer;color:inherit;line-height:0;border-radius:50%}' +
+    'button:focus-visible{outline:2px solid currentColor;outline-offset:2px}' +
+    'svg{display:block;width:var(--protofun-mode-size,20px);height:var(--protofun-mode-size,20px)}';
+  var icon = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/>' +
+             '<path d="M8 1.5a6.5 6.5 0 0 0 0 13z" fill="currentColor"/></svg>';
+  class ProtofunMode extends HTMLElement {
+    connectedCallback() {
+      var root = this.attachShadow({ mode: 'open' });
+      root.innerHTML = '<style>' + css + '</style><button type="button" aria-label="Switch between light and dark" title="Light / dark">' + icon + '</button>';
+      root.querySelector('button').addEventListener('click', function () {
+        var cur = document.documentElement.getAttribute('data-theme') || 'house-light';
+        var next = PAIR[cur] || 'house-dark';
+        var rj = document.querySelector('protofun-toggle:not([passive])');
+        if (rj && rj.apply) { rj.apply(next, true); return; }
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('protofun-theme', next); } catch (e) {}
+      });
+    }
+  }
+  customElements.define('protofun-mode', ProtofunMode);
 })();

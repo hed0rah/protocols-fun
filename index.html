@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Network Protocol Headers</title>
-<script>(function(){try{var m=localStorage.getItem("protofun-theme");if(!m)m=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",m);}catch(e){}})();</script>
+<script>(function(){try{var m=localStorage.getItem("protofun-theme");if(!m)m=matchMedia("(prefers-color-scheme:dark)").matches?"house-dark":"house-light";document.documentElement.setAttribute("data-theme",m);}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -30,23 +30,25 @@
 :root[data-theme="house-dark"] .head .title protofun-toggle{color:var(--enum)}
 :root[data-theme="house-light"] .head .title protofun-toggle:hover{color:var(--enum)}
 :root[data-theme="house-dark"] .head .title protofun-toggle:hover{color:var(--flag)}
-:root[data-theme="house-light"] .head .stamp b{color:var(--enum)}
-:root[data-theme="house-dark"] .head .stamp b{color:var(--flag)}
 :root[data-theme="house-light"] .head .title{border-left:3px solid var(--enum)}
 :root[data-theme="house-dark"] .head .title{border-left:3px solid var(--flag)}
+.head .title protofun-mode{margin-left:auto;color:var(--soft);transition:color .15s}
+.head .title protofun-mode:hover{color:var(--enum)}
+:root[data-theme="house-light"] .head .stamp b{color:var(--enum)}
+:root[data-theme="house-dark"] .head .stamp b{color:var(--flag)}
 
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--paper);color:var(--ink);font-family:var(--ff);font-weight:300;line-height:1.7;font-size:14px;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--enum);color:var(--paper)}
-.sheet{max-width:1360px;margin:0 auto;padding:clamp(1.5rem,4vw,3.25rem) clamp(1.25rem,4vw,3rem) 5rem}
+.sheet{max-width:1180px;margin:0 auto;padding:clamp(1.5rem,4vw,3.25rem) clamp(1.25rem,4vw,28px) 5rem}
 .head{border:1px solid var(--ink);margin-bottom:1.8rem}
 .head .row{display:grid;grid-template-columns:1fr 270px;align-items:stretch}
-.head .title{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.9rem 1.1rem}
+.head .title{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.9rem 1.1rem;border-left:3px solid var(--enum)}
 .head .title protofun-toggle{--protofun-w:61px;--protofun-h:92px;color:var(--soft);flex:0 0 auto;cursor:pointer;transition:color .15s}
 .head .title protofun-toggle:hover{color:var(--enum)}
 .head .sysmark{font-size:0.62rem;letter-spacing:0.34em;color:var(--soft)}
-.head h1{font-weight:500;font-size:clamp(1.4rem,4vw,1.9rem);letter-spacing:0.02em;line-height:1.1;margin-top:0.2rem}
-.head .stamp{border-left:1px solid var(--line);padding:0.9rem 1.1rem;text-align:right;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);display:flex;flex-direction:column;justify-content:center;gap:0.2rem}
+.head h1{font-weight:500;font-size:clamp(1.4rem,4vw,1.85rem);letter-spacing:0.02em;line-height:1.1;margin-top:0.2rem}
+.head .stamp{border-left:1px solid var(--line);padding:0.9rem 1.1rem;text-align:right;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);display:flex;flex-direction:column;justify-content:center;gap:0.35rem}
 .head .stamp b{color:var(--enum);font-weight:500}
 .head .stamp a{color:var(--faint);text-decoration:none;transition:color .15s}
 .head .stamp a:hover{color:var(--enum)}
@@ -137,6 +139,52 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
   .atable th,.atable td{padding:0.35rem 0.45rem;white-space:normal;overflow-wrap:anywhere}
   code{white-space:normal;overflow-wrap:anywhere}
 }
+
+/* hover contract: focus parity and reduced motion */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}}
+
+/* ---- gateway hero: RJ at size, a bubble he yaps out of, three doors ----
+   capped so the station map below is still reachable without a long scroll */
+.hero{display:flex;align-items:center;gap:clamp(.9rem,3vw,1.8rem);
+  margin:1rem 0 1.1rem;padding:0 0 1rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.hero-rj{flex:0 0 auto;line-height:0}
+.hero-rj protofun-toggle{--protofun-w:96px;--protofun-h:145px;color:var(--enum);display:block}
+.bubble{position:relative;flex:1 1 20rem;min-width:min(100%,17rem);
+  border:1px solid var(--ink);background:var(--panel);color:var(--ink);
+  font-family:var(--ff);font-size:0.92rem;line-height:1.6;text-align:left;
+  padding:.85rem 1rem;min-height:4.1rem;display:flex;align-items:center;
+  cursor:pointer;border-radius:2px}
+.bubble:hover{border-color:var(--enum)}
+.bubble:focus{outline:none}
+.bubble:focus-visible{outline:2px solid var(--enum);outline-offset:2px}
+/* tail: two rotated squares, ink behind panel, so six themes paint it from tokens */
+.bubble::before,.bubble::after{content:"";position:absolute;width:13px;height:13px;
+  top:50%;margin-top:-7px;transform:rotate(45deg)}
+.bubble::before{left:-8px;background:var(--ink)}
+.bubble::after{left:-6px;background:var(--panel)}
+.bubble .said{display:block}
+.bubble .nudge{display:block;margin-top:.4rem;font-size:0.58rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--faint)}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:2px;
+  flex:1 1 100%;margin-top:.2rem}
+.door{display:block;border:1px solid var(--line);background:var(--panel);
+  padding:.55rem .75rem;text-decoration:none;transition:border-color .12s,background .12s}
+.door:hover{border-color:var(--enum)}
+.door:focus{outline:none}
+.door:focus-visible{outline:2px solid var(--enum);outline-offset:1px}
+.door b{display:block;color:var(--ink);font-weight:500;font-size:0.78rem}
+.door span{display:block;color:var(--soft);font-size:0.65rem;line-height:1.45;margin-top:.15rem}
+.door em{font-style:normal;color:var(--enum);font-size:0.56rem;letter-spacing:.2em;
+  text-transform:uppercase;display:block;margin-bottom:.25rem}
+@media(max-width:620px){
+  .hero{gap:1rem;justify-content:center}
+  .hero-rj protofun-toggle{--protofun-w:76px;--protofun-h:115px}
+  .bubble{min-width:100%;order:-1;text-align:center;justify-content:center}
+  .bubble::before,.bubble::after{top:auto;bottom:-8px;left:50%;margin:0 0 0 -7px}
+  .bubble::after{bottom:-6px}
+  .doors{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}}
 </style>
 </head>
 <body>
@@ -144,15 +192,30 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
 
   <div class="head">
     <div class="row">
-      <div class="title"><div class="tt"><div class="sysmark">PROTOCOLS-FUN . THE MAP</div><h1>Network Protocol Headers</h1></div><protofun-toggle aria-label="Toggle light and dark theme"></protofun-toggle></div>
-      <div class="stamp"><a href="https://x.com/r3l0z">r3l0z</a> &middot; <a href="https://hed0rah.github.io">hed0rah.github.io</a><br>rev 2026.08</div>
+      <div class="title"><div class="tt"><div class="sysmark">PROTOCOLS-FUN . THE MAP</div><h1>Network Protocol Headers</h1></div><protofun-mode></protofun-mode><protofun-toggle aria-label="Toggle light and dark theme"></protofun-toggle></div>
+      <div class="stamp"><a href="https://hed0rah.github.io">hed0rah.github.io</a><a href="https://x.com/r3l0z">x.com/r3l0z</a></div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-rj"><protofun-toggle passive></protofun-toggle></div>
+    <button class="bubble" id="bubble" title="RJ has more where that came from">
+      <span><span class="said" id="said" aria-live="polite"></span><span class="nudge">click for another</span></span>
+    </button>
+    <div class="doors">
+      <a class="door" href="#map"><em>you are here</em><b>The map</b>
+        <span>28 protocol headers.</span></a>
+      <a class="door" href="https://hed0rah.github.io/anatomy-of-a-web-request/"><em>the path</em><b>Anatomy of a Web Request</b>
+        <span>HTTP request lifecycle.</span></a>
+      <a class="door" href="https://hed0rah.github.io/linux_network_stack/"><em>the kernel</em><b>Linux Network Stack</b>
+        <span>Kernel packet path and sysctls.</span></a>
     </div>
   </div>
 
   <div class="sec">the map</div>
   <div class="mapblock">
     <div class="mapwrap">
-      <svg viewBox="0 0 960 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Subway-style map of network protocols by OSI layer" id="map">
+      <svg viewBox="0 0 960 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of network protocols, arranged by OSI layer" id="map">
 
         <!-- line paths -->
         <path d="M110,90 L260,90 L410,90 L560,90 L710,90" fill="none" stroke="var(--l-app)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -216,8 +279,8 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
     </div>
 
     <aside class="detailcard" id="card">
-      <div class="dl"><span id="c-layer-tag">select a station</span></div>
-      <h3 id="c-title">Hover or click any station</h3>
+      <div class="dl"><span id="c-layer-tag">select a protocol</span></div>
+      <h3 id="c-title">Hover or click any protocol</h3>
       <div class="layer" id="c-layer"></div>
       <p id="c-body">Layer, dependencies, and a link to the full byte-level page once built.</p>
       <div id="c-link"></div>
@@ -232,17 +295,22 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
     <div class="item"><span class="swatch dash" style="color:var(--l-legacy)"></span>Legacy / Other</div>
   </div>
 
-  <div class="sec">station index</div>
+  <div class="sec">protocol index</div>
   <div class="plist" id="plist"></div>
 
   <div class="sec">additional resources</div>
+  <a class="xlink" href="ddos/index.html">
+    <span class="xtag">ddos</span>
+    <span class="xbody"><b>Attack Anatomy: the bytes</b><span class="xd">SYN flood, spoofing, amplification and Rapid Reset, field by field, plus the history</span></span>
+    <span class="xgo">&rarr;</span>
+  </a>
   <a class="xlink" href="attacks/attack-anatomy.html">
-    <span class="xtag">new</span>
+    <span class="xtag">defence</span>
     <span class="xbody"><b>Attack &amp; Mitigation</b><span class="xd">how the stack gets attacked and defended - floods &amp; amplification, HTTP/2 Rapid Reset, bot abuse, JA4 fingerprinting, defense in depth</span></span>
     <span class="xgo">&rarr;</span>
   </a>
   <a class="xlink" href="filtering/capture-filter.html">
-    <span class="xtag">new</span>
+    <span class="xtag">capture</span>
     <span class="xbody"><b>Capture &amp; Filter</b><span class="xd">see hostile traffic on the wire - BPF vs display filters, tcpdump/tshark/Wireshark, offset matching, and the u32/nftables bridge to dropping it</span></span>
     <span class="xgo">&rarr;</span>
   </a>
@@ -251,9 +319,14 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
     <span class="xbody"><b>IPv6 &amp; IPv4 Header Anatomy</b><span class="xd">the two headers that open every packet, byte by byte - the ipv6-fun deep dive</span></span>
     <span class="xgo">&rarr;</span>
   </a>
+  <a class="xlink" href="https://hed0rah.github.io/anatomy-of-a-web-request/">
+    <span class="xtag">path</span>
+    <span class="xbody"><b>Anatomy of a Web Request</b><span class="xd">HTTP request lifecycle, caches and CDN edge selection</span></span>
+    <span class="xgo">&rarr;</span>
+  </a>
   <a class="xlink" href="https://hed0rah.github.io/linux_network_stack/">
     <span class="xtag">kernel</span>
-    <span class="xbody"><b>Linux Network Stack</b><span class="xd">how a packet moves through the kernel - a flow/tree tunable reference</span></span>
+    <span class="xbody"><b>Linux Network Stack</b><span class="xd">kernel packet path and sysctl reference</span></span>
     <span class="xgo">&rarr;</span>
   </a>
   <a class="xlink" href="ebpf/ebpf-networking.html">
@@ -267,32 +340,70 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
     <span class="xgo">&rarr;</span>
   </a>
   <a class="xlink" href="tls/tls13-handshake.html">
-    <span class="xtag">new</span>
+    <span class="xtag">tls</span>
     <span class="xbody"><b>TLS 1.3 Handshake</b><span class="xd">the handshake byte-by-byte - ClientHello fields, the 1-RTT flow, the key schedule, 0-RTT, and the exact bytes JA4 hashes</span></span>
     <span class="xgo">&rarr;</span>
   </a>
   <a class="xlink" href="quic/quic-http3-breakdown.html">
-    <span class="xtag">new</span>
+    <span class="xtag">quic</span>
     <span class="xbody"><b>QUIC &amp; HTTP/3</b><span class="xd">packets, Initial keys, varints &amp; frames, connection IDs, HTTP/3 &amp; QPACK - and the Initial ClientHello that JA4q reads</span></span>
     <span class="xgo">&rarr;</span>
   </a>
   <a class="xlink" href="firewall/packet-fate.html">
-    <span class="xtag">new</span>
+    <span class="xtag">netfilter</span>
     <span class="xbody"><b>Packet Fate</b><span class="xd">the firewall path - netfilter hooks, conntrack, DROP vs REJECT, and who really sent that "connection reset by peer" (the TTL gives it away)</span></span>
     <span class="xgo">&rarr;</span>
   </a>
   <a class="xlink" href="ech/ech-breakdown.html">
-    <span class="xtag">new</span>
+    <span class="xtag">privacy</span>
     <span class="xbody"><b>ECH - Encrypted ClientHello</b><span class="xd">the countermove to SNI fingerprinting - the HPKE-sealed inner hello, the HTTPS-record key, GREASE, and why ECH hides where you are going, not who you are</span></span>
     <span class="xgo">&rarr;</span>
   </a>
 
-  <footer><span>protocols-fun / the map</span><span>engine shared with <a href="https://hed0rah.github.io/audio_files_anatomy/">acidcat</a> &middot; palette kin to <a href="https://hed0rah.github.io/linux_network_stack/">linux_network_stack</a></span><span><a href="https://github.com/hed0rah/ipv6-fun">ipv6-fun</a> &middot; <a href="https://github.com/hed0rah/protocols-fun">github</a></span></footer>
+  <footer><span>protocols-fun / the map</span><span>engine shared with <a href="https://hed0rah.github.io/audio_files_anatomy/">acidcat</a> &middot; palette kin to <a href="https://hed0rah.github.io/linux_network_stack/">linux_network_stack</a> &middot; <a href="https://hed0rah.github.io/anatomy-of-a-web-request/">web request</a></span><span><a href="https://github.com/hed0rah/ipv6-fun">ipv6-fun</a> &middot; <a href="https://github.com/hed0rah/protocols-fun">github</a></span></footer>
 </div>
+
 
 
 <script>
 (function(){
+  // RJ's six. No repeat until the list is exhausted, so clicking twice always
+  // gives two different lines and a reload rarely repeats the last one.
+  var SAID=[
+    "I'd tell a joke about UDP but you might not get it",
+    "It hurts when IP.",
+    "localhost is where the <3 is",
+    "Hide yo SSIDs, hide yo Wi-Fi. They DDoS'in errybody out here",
+    "Sanitize your inputs or the database gets it.",
+    "Dropping tables and names since 1998"
+  ];
+  var said=document.getElementById('said'), bubble=document.getElementById('bubble');
+  if(!said||!bubble) return;
+  var last=-1;
+  try{ last=parseInt(localStorage.getItem('rj-said'),10); }catch(e){}
+  if(!(last>=0&&last<SAID.length)) last=-1;
+  function say(){
+    var i=last;
+    if(SAID.length>1){ while(i===last) i=Math.floor(Math.random()*SAID.length); }
+    else i=0;
+    last=i;
+    said.textContent=SAID[i];
+    try{ localStorage.setItem('rj-said',String(i)); }catch(e){}
+  }
+  say();
+  bubble.addEventListener('click',say);
+})();
+</script>
+<script src="assets/hover.js"></script>
+<script>
+(function(){
+  /* ---- hover contract ----------------------------------------------------
+     one controller for the page. open 100ms, close 250ms, asymmetric so a
+     pass-through opens nothing and crossing a gap does not dismiss. writes
+     coalesced into one animation frame. pointer-type gated, so touch never
+     hovers. every trigger focusable, Enter/Space pins, Escape releases.
+     ----------------------------------------------------------------------- */
+
   var STATIONS = {
     dns:   {title:"DNS", layer:"Application (L7)", built:true, color:"var(--l-app)", page:"dns/dns-anatomy.html",
       body:"Resolves names to addresses. Runs over UDP for ordinary lookups (fits one packet, no connection setup needed) and falls back to TCP for zone transfers or answers too large for one UDP datagram (RFC 1035, and EDNS0/RFC 6891 for larger UDP responses)."},
@@ -359,7 +470,7 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
   document.querySelectorAll(".station").forEach(function(el){
     var id = el.dataset.id;
     var s = STATIONS[id];
-    el.addEventListener("mouseenter", function(){ paint(id); });
+    HOV.bind(el, function(){ paint(id); }, function(){}, null);
     el.addEventListener("click", function(){
       if(s.built && s.page){ window.location.href = s.page; return; }
       document.querySelectorAll(".station.active").forEach(function(n){n.classList.remove("active");});
@@ -368,7 +479,7 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
     });
   });
 
-  // build the station index as an ASCII tree grouped by layer -- every leaf is a
+  // build the protocol index as an ASCII tree grouped by layer -- every leaf is a
   // full clickable link (hover paints the detail card, like the map stations).
   var plist = document.getElementById("plist");
   var order = ["tcp","udp","ipv4","icmp","ipv6","arp","ethernet","wifi","ppp","dns","http","dhcp","snmp","bgp","ipx","pocsag","sitor","arpanet-imp"];
@@ -382,7 +493,7 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
   var rootrow=document.createElement("div"); rootrow.className="troot"; rootrow.textContent="protocols/"; tree.appendChild(rootrow);
   LAYERS.forEach(function(L,li){
     var ids=byLayer[L[0]]||[]; if(!ids.length) return;
-    var lastGrp = li===LAYERS.length-1;
+    var lastGrp = false;   // the cross-cutting group is always last
     var gh=document.createElement("div"); gh.className="tgrp";
     var gg=document.createElement("span"); gg.className="g"; gg.textContent=(lastGrp?"└─ ":"├─ "); gh.appendChild(gg);
     var gd=document.createElement("span"); gd.className="gdot"; gd.style.background=L[1]; gh.appendChild(gd);
@@ -396,14 +507,49 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
       var g=document.createElement("span"); g.className="g"; g.textContent=pre; a.appendChild(g);
       var n=document.createElement("span"); n.className="n"; n.textContent=s.title; a.appendChild(n);
       var b=document.createElement("span"); b.className="b"; b.textContent=(s.body.split(". ")[0]||"").replace(/\.$/,""); a.appendChild(b);
-      a.addEventListener("mouseenter", function(){ paint(id); });
+      HOV.bind(a, function(){ paint(id); }, function(){}, null);
       tree.appendChild(a);
     });
   });
+
+  // pages that cut across the layers instead of sitting on one, so they were
+  // never stations on the map and never reached the tree. the tree is the
+  // index for the whole set, so it lists them too.
+  var CROSS=[
+    ["web request","https://hed0rah.github.io/anatomy-of-a-web-request/","http request lifecycle"],
+    ["attacks","attacks/attack-anatomy.html","what breaks each layer, and what stops it"],
+    ["ddos bytes","ddos/index.html","the packets four attacks actually send"],
+    ["packet fate","firewall/packet-fate.html","netfilter hooks and the path a packet takes"],
+    ["capture","filtering/capture-filter.html","BPF, capture filters and display filters"],
+    ["ebpf","ebpf/ebpf-networking.html","the hooks that run before netfilter gets a say"],
+    ["tls 1.3","tls/tls13-handshake.html","the handshake, flight by flight"],
+    ["ech","ech/ech-breakdown.html","encrypting the one field still in the clear"],
+    ["quic","quic/quic-http3-breakdown.html","transport and crypto in one flight, over UDP"],
+    ["ja4+","ja4/ja4plus-breakdown.html","fingerprinting a client from how it speaks"],
+    ["linux stack","https://hed0rah.github.io/linux_network_stack/","kernel packet path and sysctls"]
+  ];
+  var xh=document.createElement("div"); xh.className="tgrp";
+  var xg=document.createElement("span"); xg.className="g"; xg.textContent="└─ "; xh.appendChild(xg);
+  var xd=document.createElement("span"); xd.className="gdot";
+  xd.style.background="var(--flag)"; xh.appendChild(xd);
+  var xl=document.createElement("span"); xl.className="glab";
+  xl.style.color="var(--flag)"; xl.textContent="cross-cutting"; xh.appendChild(xl);
+  tree.appendChild(xh);
+  CROSS.forEach(function(row,ci){
+    var a=document.createElement("a"); a.className="tleaf"; a.href=row[1];
+    if(row[1].indexOf("http")===0){ a.target="_blank"; a.rel="noopener"; }
+    var g=document.createElement("span"); g.className="g";
+    g.textContent="   "+(ci===CROSS.length-1?"└─ ":"├─ "); a.appendChild(g);
+    var n=document.createElement("span"); n.className="n"; n.textContent=row[0]; a.appendChild(n);
+    var b=document.createElement("span"); b.className="b"; b.textContent=row[2]; a.appendChild(b);
+    tree.appendChild(a);
+  });
+
   plist.appendChild(tree);
 
   paint("tcp");
 
+  HOV.esc(function(){document.querySelectorAll(".active,.on,.cued,.pinned").forEach(function(n){n.classList.remove("active","cued","pinned");});});
 })();
 </script>
 <script src="assets/protofun-toggle.js"></script>

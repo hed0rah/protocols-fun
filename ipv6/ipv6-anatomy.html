@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>protocols-fun / IPv6 anatomy</title>
-<script>(function(){try{var m=localStorage.getItem("protofun-theme");if(!m)m=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",m);}catch(e){}})();</script>
+<script>(function(){try{var m=localStorage.getItem("protofun-theme");if(!m)m=matchMedia("(prefers-color-scheme:dark)").matches?"house-dark":"house-light";document.documentElement.setAttribute("data-theme",m);}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -28,28 +28,26 @@
 :root[data-theme="house-dark"] .head .title protofun-toggle{color:var(--enum)}
 :root[data-theme="house-light"] .head .title protofun-toggle:hover{color:var(--enum)}
 :root[data-theme="house-dark"] .head .title protofun-toggle:hover{color:var(--flag)}
-:root[data-theme="house-light"] .head .stamp b{color:var(--enum)}
-:root[data-theme="house-dark"] .head .stamp b{color:var(--flag)}
 :root[data-theme="house-light"] .head .title{border-left:3px solid var(--enum)}
 :root[data-theme="house-dark"] .head .title{border-left:3px solid var(--flag)}
+.head .title protofun-mode{margin-left:auto;color:var(--soft);transition:color .15s}
+.head .title protofun-mode:hover{color:var(--enum)}
 
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--paper);color:var(--ink);font-family:var(--ff);font-weight:300;line-height:1.7;font-size:14px;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--enum);color:var(--paper)}
-.sheet{max-width:1040px;margin:0 auto;padding:clamp(1.5rem,4vw,3.25rem) clamp(1.25rem,4vw,3rem) 5rem}
+.sheet{max-width:1180px;margin:0 auto;padding:clamp(1.5rem,4vw,3.25rem) clamp(1.25rem,4vw,28px) 5rem}
 .head{border:1px solid var(--ink);margin-bottom:1.8rem}
-.head .row{display:grid;grid-template-columns:1fr 270px;align-items:stretch}
-.head .title{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.9rem 1.1rem}
+.head .title{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.9rem 1.1rem;border-left:3px solid var(--enum)}
 .head .title protofun-toggle{--protofun-w:61px;--protofun-h:92px;color:var(--soft);flex:0 0 auto;cursor:pointer;transition:color .15s}
 .head .title protofun-toggle:hover{color:var(--enum)}
 .head .sysmark{font-size:0.62rem;letter-spacing:0.34em;color:var(--soft)}
 .head h1{font-weight:500;font-size:clamp(1.4rem,4vw,1.85rem);letter-spacing:0.02em;line-height:1.1;margin-top:0.2rem}
-.head .stamp{border-left:1px solid var(--line);padding:0.9rem 1.1rem;text-align:right;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);display:flex;flex-direction:column;justify-content:center;gap:0.2rem}
-.head .stamp b{color:var(--enum);font-weight:500}
-.head .strip{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase}
-.head .strip div{padding:0.5rem 1.1rem;border-right:1px solid var(--hair);color:var(--soft)}
-.head .strip div:last-child{border-right:none}
-.head .strip b{color:var(--ink);font-weight:500}
+.head .row{display:grid;grid-template-columns:1fr 270px;align-items:stretch}
+.head .stamp{border-left:1px solid var(--line);padding:0.9rem 1.1rem;text-align:right;font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;display:flex;flex-direction:column;justify-content:center;gap:0.35rem}
+.head .stamp a{color:var(--faint);text-decoration:none;transition:color .15s}
+.head .stamp a:hover{color:var(--enum)}
+@media(max-width:560px){.head .row{grid-template-columns:1fr}.head .stamp{border-left:none;border-top:1px solid var(--line);text-align:left}}
 .lede{color:var(--soft);max-width:74ch;margin-bottom:2.2rem;font-size:0.85rem;line-height:1.75}
 .lede b{color:var(--ink);font-weight:500}
 .lede a{color:var(--enum)}
@@ -84,8 +82,6 @@ body{background:var(--paper);color:var(--ink);font-family:var(--ff);font-weight:
 .panelwrap{border:1px solid var(--line);border-top:none;padding:1.6rem clamp(1rem,3vw,1.8rem) 2rem;margin-bottom:2rem}
 .panel{display:none}
 .panel.on{display:block}
-.pfacts{display:flex;flex-wrap:wrap;gap:0 1.8rem;font-size:0.64rem;letter-spacing:0.06em;color:var(--soft);text-transform:uppercase;margin-bottom:1.1rem;border-bottom:1px solid var(--hair);padding-bottom:0.7rem}
-.pfacts b{color:var(--enum);font-weight:500;margin-left:0.4rem;text-transform:none;letter-spacing:0.02em}
 
 .difftable{width:100%;border-collapse:collapse;font-size:0.76rem;margin:0.6rem 0 1.8rem}
 .difftable th,.difftable td{border:1px solid var(--hair);padding:0.5rem 0.75rem;text-align:left;vertical-align:top}
@@ -165,16 +161,14 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
 @media(max-width:560px){
   body{font-size:13px}
   .sheet{padding-left:1rem;padding-right:1rem}
-  .head .row{grid-template-columns:1fr}
-  .head .stamp{border-left:none;border-top:1px solid var(--line);text-align:left;justify-content:flex-start}
-  .head .strip{grid-template-columns:1fr}
-  .head .strip div{border-right:none;border-bottom:1px solid var(--hair)}
-  .head .strip div:last-child{border-bottom:none}
   .kv div{grid-template-columns:1fr;gap:0.15rem;padding:0.4rem 0}
   .branch{padding-left:0.4rem}
   .atable th,.atable td{padding:0.35rem 0.45rem;white-space:normal;overflow-wrap:anywhere}
   code{white-space:normal;overflow-wrap:anywhere}
 }
+
+/* hover contract: focus parity and reduced motion */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}}
 </style>
 </head>
 <body>
@@ -182,17 +176,13 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
 
   <div class="head">
     <div class="row">
-      <div class="title"><div class="tt"><div class="sysmark">PROTOCOLS-FUN . PACKET ANATOMY</div><h1>IPv6 Anatomy</h1></div><protofun-toggle aria-label="Toggle light and dark theme"></protofun-toggle></div>
-      <div class="stamp"><b>IPv4 (RFC 791) + IPv6 (RFC 8200)</b><br>rev 2026.08</div>
-    </div>
-    <div class="strip">
-      <div>layer <b>L3 . network</b></div><div>v6 header <b>40B fixed</b></div>
-      <div>v4 header <b>20-60B</b></div>
+      <div class="title"><div class="tt"><div class="sysmark">PROTOCOLS-FUN . PACKET ANATOMY</div><h1>IPv6 Anatomy</h1></div><protofun-mode></protofun-mode><protofun-toggle aria-label="Toggle light and dark theme"></protofun-toggle></div>
+    <div class="stamp"><a href="https://hed0rah.github.io">hed0rah.github.io</a><a href="https://x.com/r3l0z">x.com/r3l0z</a></div>
     </div>
   </div>
 
   <div class="intro">
-  <p class="lede">Every packet on the internet opens with one of these two headers. <b>IPv4</b>'s 20-byte header has carried the internet since 1981; <b>IPv6</b>'s fixed 40-byte header, finalized in 2017, trades IPv4's variable-length options for a chain of separate extension headers and swaps a 32-bit address space for a 128-bit one. <b>Hover</b> a field to light its bytes, <b>click</b> a field marked <span class="k-en">+</span> for its lookup&nbsp;table.</p>
+  <p class="lede">The IPv4 (<a href="https://www.rfc-editor.org/rfc/rfc791">RFC 791</a>) and IPv6 (<a href="https://www.rfc-editor.org/rfc/rfc8200">RFC 8200</a>) headers, side by side.</p>
   <aside class="sig" aria-label="color key">
     <div class="legrows">
     <div class="row"><span class="sw dark k-enum">teal</span><span class="swsep">&#8594;</span><span class="sw light k-enum">value</span></div>
@@ -205,7 +195,7 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
   </div>
 
   <div class="tabs" id="tabs">
-    <button class="tab on" data-p="overview">Overview<small>where it sits, the diff</small></button>
+    <button class="tab on" data-p="overview">Overview<small>IPv4 vs IPv6</small></button>
     <button class="tab" data-p="ipv6">IPv6 Header<small>40 bytes, fixed</small></button>
     <button class="tab" data-p="ipv4">IPv4 Header<small>20-60 bytes</small></button>
   </div>
@@ -244,14 +234,12 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
     </div>
 
     <div class="panel" data-panel="ipv6">
-      <div class="pfacts"><span>size<b>40 bytes, fixed</b></span><span>addr<b>128-bit</b></span><span>spec<b>RFC 8200</b></span></div>
       <p class="note">First word (version, traffic class, flow label) is bit-packed, so it's drawn bit by bit. Everything after it is byte-aligned - payload length, next header, hop limit, then the two 128-bit addresses drawn byte by byte.</p>
       <div id="ipv6-word0" data-build></div>
       <div id="ipv6-rest" data-build></div>
     </div>
 
     <div class="panel" data-panel="ipv4">
-      <div class="pfacts"><span>size<b>20-60 bytes</b></span><span>addr<b>32-bit</b></span><span>spec<b>RFC 791</b></span></div>
       <p class="note">Version+IHL+DSCP+ECN pack into the first 2 bytes, so they're drawn bit by bit; Total Length and Identification are byte-aligned; Flags+Fragment Offset pack into 2 more bits; TTL, Protocol, Checksum, and both addresses are byte-aligned.</p>
       <div id="ipv4-word0" data-build></div>
       <div id="ipv4-lengths" data-build></div>
@@ -265,8 +253,16 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
 </div>
 
 
+<script src="../assets/hover.js"></script>
 <script>
 (function(){
+  /* ---- hover contract ----------------------------------------------------
+     one controller for the page. open 100ms, close 250ms, asymmetric so a
+     pass-through opens nothing and crossing a gap does not dismiss. writes
+     coalesced into one animation frame. pointer-type gated, so touch never
+     hovers. every trigger focusable, Enter/Space pins, Escape releases.
+     ----------------------------------------------------------------------- */
+
   var KINDS={sync:"structural",enum:"value",flag:"flag",rsv:"reserved"};
   function hx(b){return b.toString(16).toUpperCase().padStart(2,"0");}
 
@@ -304,7 +300,7 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
       });
     }
     var list=document.createElement("div"); list.className="fields";
-    var aside=document.createElement("aside"); aside.className="detail";
+    var aside=document.createElement("aside"); aside.className="detail"; aside.setAttribute("role","status"); aside.setAttribute("aria-live","polite");
     aside.innerHTML="<div class='dl'><span>field detail</span><span class='kind'></span></div>"+
       "<h3>Hover a field or byte</h3><div class='dc'>"+(unit==="bit"?N+" bits":bytes.length+" bytes")+"</div>"+
       "<p>Hover any field row or byte to light it and read the decode. Click to pin it; a field marked + opens its table.</p><div class='dn'></div>";
@@ -331,21 +327,20 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
         bw.innerHTML="<table>"+f.branch.map(function(p,i){return "<tr class='"+(i===f.sel?"sel":"")+"'><td class='k'>"+p[0]+"</td><td>"+p[1]+"</td></tr>";}).join("")+"</table>";
         row.appendChild(bw);
       }
-      row.addEventListener("mouseenter",function(){cue(fi);});
-      row.addEventListener("click",function(){pin(fi);});
+      HOV.bind(row,function(){cue(fi);},restore,function(){pin(fi);});
       rows.push(row); list.appendChild(row);
     });
     cells.forEach(function(c){
       var fi=owner[+c.dataset.idx];
-      c.addEventListener("mouseenter",function(){cue(fi);});
-      c.addEventListener("click",function(){pin(fi);});
+      HOV.bind(c,function(){cue(fi);},restore,function(){pin(fi);});
     });
     var left=document.createElement("div"); left.className="left";
     left.appendChild(diagram); left.appendChild(list);
     var dcol=document.createElement("div"); dcol.className="detailcol"; dcol.appendChild(aside);
     var block=document.createElement("div"); block.className="block";
     block.appendChild(left); block.appendChild(dcol);
-    block.addEventListener("mouseleave",restore);
+    HOV.leave(block,restore);
+    HOV.esc(function(){rows.forEach(function(r){r.classList.remove("active");});restore();});
     mount.appendChild(block);
     var maxH=aside.scrollHeight;
     fields.forEach(function(f){ show(f); if(aside.scrollHeight>maxH) maxH=aside.scrollHeight; });
@@ -506,13 +501,13 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
     od.t.textContent=o.label; od.c.textContent=o.val; od.b.textContent=o.body; od.n.textContent=o.note||""; od.kind.textContent=KINDS[o.kind];
   }
   osiRows.forEach(function(row){
-    row.addEventListener("mouseenter",function(){
+    HOV.bind(row,function(){
       osiRows.forEach(function(r){r.classList.remove("cued");});
       row.classList.add("cued");
       showOsi(row.dataset.osi);
-    });
+    },function(){},null);
   });
-  document.getElementById("osi-list").addEventListener("mouseleave",function(){
+  HOV.leave(document.getElementById("osi-list"),function(){
     osiRows.forEach(function(r){r.classList.remove("cued");});
     osiRows[1].classList.add("cued");
     showOsi("l3");
@@ -526,5 +521,6 @@ footer a{color:inherit;border-bottom:1px solid var(--hair)} footer a:hover{color
 })();
 </script>
 <script src="../assets/protofun-toggle.js"></script>
+<script src="../assets/nav.js" data-nav-root=".."></script>
 </body>
 </html>
